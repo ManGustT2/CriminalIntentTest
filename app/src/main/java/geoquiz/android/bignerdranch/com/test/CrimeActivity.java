@@ -1,15 +1,17 @@
 package geoquiz.android.bignerdranch.com.test;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import geoquiz.android.bignerdranch.com.test.view.CrimeListFragment;
+
 public class CrimeActivity extends AppCompatActivity {
+    private FragmentManager fm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,6 +19,23 @@ public class CrimeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_crime);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        fm = getSupportFragmentManager();
+        Fragment fragment = fm.findFragmentById(R.id.container);
+
+        if(fragment == null)
+            addFragment(new CrimeListFragment());
+    }
+
+    public void addFragment(Fragment fragment){
+        fm.beginTransaction()
+                .add(R.id.container, fragment)
+                .commit();
+    }
+
+    public void replaceFragment(Fragment fragment){
+        fm.beginTransaction()
+                .replace(R.id.container, fragment)
+                .commit();
     }
 
     @Override
@@ -32,8 +51,6 @@ public class CrimeActivity extends AppCompatActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        //asdsadas
-
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
