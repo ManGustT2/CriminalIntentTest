@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -21,7 +20,7 @@ public class CrimeListAdapter extends BaseAdapter {
     private ArrayList<Crime> crimeList;
     private Context context;
 
-    public CrimeListAdapter(Context context, ArrayList<Crime> crimeList){
+    public CrimeListAdapter(Context context, ArrayList<Crime> crimeList) {
         this.context = context;
         this.crimeList = crimeList;
     }
@@ -44,13 +43,14 @@ public class CrimeListAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View v = LayoutInflater.from(context).inflate(R.layout.list_item_crime, parent, false);
-        CheckBox mCheckBox = (CheckBox)v.findViewById(R.id.crime_list_item_solvedCheckBox);
-        TextView mDate = (TextView)v.findViewById(R.id.crime_list_item_dateTextView);
-        TextView mTitle = (TextView)v.findViewById(R.id.crime_list_item_titleTextView);
+        CheckBox mCheckBox = (CheckBox) v.findViewById(R.id.crime_list_item_solvedCheckBox);
+        TextView mDate = (TextView) v.findViewById(R.id.crime_list_item_dateTextView);
+        TextView mTitle = (TextView) v.findViewById(R.id.crime_list_item_titleTextView);
 
         Crime c = crimeList.get(position);
-      //  mCheckBox.setChecked(c.);
+        mCheckBox.setChecked(c.ismSolved());
         mTitle.setText(c.getmTitle());
+        mDate.setText(c.getDate().toString());
         return v;
     }
 }

@@ -26,15 +26,34 @@ public class CrimeActivity extends AppCompatActivity {
             addFragment(new CrimeListFragment());
     }
 
+    @Override
+    public void onBackPressed() {
+        int coutnt = getFragmentManager().getBackStackEntryCount();
+        if(coutnt == 0) {
+            super.onBackPressed();
+        }else {
+            getFragmentManager().popBackStack();
+        }
+    }
+    /*
+    добавляем фрагмент с добавлением в стек.
+     */
+
     public void addFragment(Fragment fragment){
         fm.beginTransaction()
                 .add(R.id.container, fragment)
+                .addToBackStack(null)
                 .commit();
     }
+
+    /*
+    замещаем фрагмент с добавлением  в стек.
+     */
 
     public void replaceFragment(Fragment fragment){
         fm.beginTransaction()
                 .replace(R.id.container, fragment)
+                .addToBackStack(null)
                 .commit();
     }
 
