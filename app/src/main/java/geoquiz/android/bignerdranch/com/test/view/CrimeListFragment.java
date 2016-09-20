@@ -7,13 +7,13 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
-
 import java.util.ArrayList;
-
 import geoquiz.android.bignerdranch.com.test.CrimeActivity;
 import geoquiz.android.bignerdranch.com.test.R;
 import geoquiz.android.bignerdranch.com.test.adapter.CrimeListAdapter;
+import geoquiz.android.bignerdranch.com.test.manager.CrimeLab;
 import geoquiz.android.bignerdranch.com.test.model.Crime;
 
 /**
@@ -36,13 +36,10 @@ public class CrimeListFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         crimeList = new ArrayList<>();
+        getActivity().setTitle(R.string.crime_title);
+        crimeList = CrimeLab.get(getActivity()).getCrimes();
 
-        for(int i=0; i<100; i++){
-            Crime c = new Crime();
-            c.setmTitle("Title " + i);
-            crimeList.add(c);
         }
-    }
 
     @Nullable
     @Override
@@ -50,13 +47,36 @@ public class CrimeListFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_list_crime, container, false);
         findUI(v);
         return  v;
+
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        (adapter).notifyDataSetChanged();
+    }
+
+
+    /*
+    идентифицырует listView, создаем адаптер для вывода listView в CrimeListFragment,
+    при нажатии на Item тянем аргументы с обьекта Crime засовываем в Bundle и передаем CrimeFragment
+    при вызове, получаем результат
+     */
     private void findUI(View v){
         listView = (ListView)v.findViewById(R.id.crimeList);
 
         adapter = new CrimeListAdapter(getActivity(), crimeList);
         listView.setAdapter(adapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Crime c = crimeList.get(position);
+                Bundle b = new Bundle();
+                b.putSerializable(CrimeFragment.CRIME_KEY, c);
+                CrimeFragment fragment = new CrimeFragment();
+                fragment.setArguments(b);
+                activity.addFragment(fragment);
+            }
+        });
     }
-
 }
