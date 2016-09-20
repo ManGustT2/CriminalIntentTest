@@ -9,9 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-
 import java.util.ArrayList;
-
 import geoquiz.android.bignerdranch.com.test.CrimeActivity;
 import geoquiz.android.bignerdranch.com.test.R;
 import geoquiz.android.bignerdranch.com.test.adapter.CrimeListAdapter;

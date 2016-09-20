@@ -15,7 +15,6 @@ public class CrimeLab {
     private static CrimeLab sCrimeLab;
     private Context mAppContext;
 
-
     private CrimeLab(Context appContext) {
         mAppContext = appContext;
         mCrimes = new ArrayList<Crime>();
@@ -26,6 +25,7 @@ public class CrimeLab {
             mCrimes.add(c);
         }
     }
+
     /*
     Метод который используем для определения контекста при загрузке ListFragmenta
     если CrimeLab не загружен задаем ему данные контекста обьекта Crime;
@@ -36,12 +36,14 @@ public class CrimeLab {
         }
         return sCrimeLab;
     }
+
     /*
     создаю гетер который возвращает массив с обьектами crime
      */
     public ArrayList<Crime> getCrimes() {
         return mCrimes;
     }
+
     public Crime getCrime(UUID id) {
         for (Crime c : mCrimes) {
             if (c.getmId().equals(id))

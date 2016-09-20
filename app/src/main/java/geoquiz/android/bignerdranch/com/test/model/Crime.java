@@ -42,14 +42,17 @@ public class Crime implements Serializable{
         mId = UUID.randomUUID();
         mDate = new Date();
     }
+
     public String getDate(){
         return convert();
     }
+
     public String convert(){
 
         SimpleDateFormat formatter = new SimpleDateFormat("EEEE.MMM.yyyy,hh:mm:ss");
         return formatter.format(mDate);
     }
+
     public UUID getmId() {
         return mId;
     }

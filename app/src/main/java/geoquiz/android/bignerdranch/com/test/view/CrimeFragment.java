@@ -33,8 +33,6 @@ public class CrimeFragment extends Fragment {
         super.onAttach(context);
         activity = (CrimeActivity)context;
         mCrime = (Crime)getArguments().getSerializable(CRIME_KEY);
-
-
     }
 
     @Nullable
@@ -46,18 +44,10 @@ public class CrimeFragment extends Fragment {
         mDateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                FragmentManager fm = getActivity()
-//                        .getSupportFragmentManager();
-//                DatePickerFragment dialog = DatePickerFragment
-//                        .newInstance(mCrime.getmDate());
-//                dialog.setTargetFragment(CrimeFragment.this, REQUEST_DATE);
-//                dialog.show(fm, DIALOG_DATE);
 
             }
         });
 
-
-//         mDateButton.setText(mCrime.getData());
         updateDate();
 
         mTitleField = (EditText) v.findViewById(R.id.crime_title);
@@ -67,7 +57,7 @@ public class CrimeFragment extends Fragment {
         mTitleField.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                // Пусто
+
             }
 
             @Override
@@ -78,7 +68,7 @@ public class CrimeFragment extends Fragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-                //Пусто
+
             }
         });
         mSolvedCheckBox = (CheckBox) v.findViewById(R.id.crime_solved);
@@ -91,10 +81,10 @@ public class CrimeFragment extends Fragment {
         });
         return v;
     }
+
     /*
     метод сетит время для mDateButton
      */
-
     private void updateDate(){
         mDateButton.setText(mCrime.getmDate().toString());
     }

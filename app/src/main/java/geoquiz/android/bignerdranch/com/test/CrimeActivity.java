@@ -35,10 +35,10 @@ public class CrimeActivity extends AppCompatActivity {
             getFragmentManager().popBackStack();
         }
     }
+
     /*
     добавляем фрагмент с добавлением в стек.
      */
-
     public void addFragment(Fragment fragment){
         fm.beginTransaction()
                 .add(R.id.container, fragment)
@@ -49,7 +49,6 @@ public class CrimeActivity extends AppCompatActivity {
     /*
     замещаем фрагмент с добавлением  в стек.
      */
-
     public void replaceFragment(Fragment fragment){
         fm.beginTransaction()
                 .replace(R.id.container, fragment)
