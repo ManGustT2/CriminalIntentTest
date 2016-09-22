@@ -1,9 +1,13 @@
 package geoquiz.android.bignerdranch.com.test.view;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -14,12 +18,17 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 
+import java.util.Date;
+
 import geoquiz.android.bignerdranch.com.test.CrimeActivity;
 import geoquiz.android.bignerdranch.com.test.R;
 import geoquiz.android.bignerdranch.com.test.model.Crime;
+import geoquiz.android.bignerdranch.com.test.picker.DatePickerFragment;
 
 
 public class CrimeFragment extends Fragment {
+    private static final String DIALOG_DATE = "date";
+    private static final int REQUEST_DATE = 0;
     private CrimeActivity activity;
     private Crime mCrime;
     private Button mDateButton;
@@ -42,11 +51,17 @@ public class CrimeFragment extends Fragment {
 
         mDateButton = (Button) v.findViewById(R.id.crime_date);
         mDateButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+                    @Override
+                    public void onClick(View v) {
+                        FragmentManager fm = getActivity()
+                                .getSupportFragmentManager();
+                        DatePickerFragment dialog = new DatePickerFragment()
+                         .newInstance(mCrime.getmDate());
+                        dialog.setTargetFragment(CrimeFragment.this, REQUEST_DATE);
+                        dialog.show(fm, DIALOG_DATE);
+                    }
+                });
 
-            }
-        });
 
         updateDate();
 
@@ -87,5 +102,15 @@ public class CrimeFragment extends Fragment {
      */
     private void updateDate(){
         mDateButton.setText(mCrime.getmDate().toString());
+    }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode != Activity.RESULT_OK) return;
+        if (requestCode == REQUEST_DATE){
+            Date d = (Date)data
+                    .getSerializableExtra(DatePickerFragment.EXTRA_DATE);
+            mCrime.setmDate(d);
+            updateDate();
+        }
     }
 }
