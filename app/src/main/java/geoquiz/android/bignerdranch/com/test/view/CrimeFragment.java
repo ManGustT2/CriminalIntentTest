@@ -24,11 +24,14 @@ import geoquiz.android.bignerdranch.com.test.CrimeActivity;
 import geoquiz.android.bignerdranch.com.test.R;
 import geoquiz.android.bignerdranch.com.test.model.Crime;
 import geoquiz.android.bignerdranch.com.test.picker.DatePickerFragment;
+import geoquiz.android.bignerdranch.com.test.picker.TimePickerFragment;
 
 
 public class CrimeFragment extends Fragment {
     private static final String DIALOG_DATE = "date";
+    private static final String DIALOG_TIME = "time";
     private static final int REQUEST_DATE = 0;
+    private static final int REQUEST_TIME = 1;
     private CrimeActivity activity;
     private Crime mCrime;
     private Button mDateButton;
@@ -61,7 +64,6 @@ public class CrimeFragment extends Fragment {
                         dialog.show(fm, DIALOG_DATE);
                     }
                 });
-
 
         updateDate();
 
@@ -100,7 +102,7 @@ public class CrimeFragment extends Fragment {
     /*
     метод сетит время для mDateButton
      */
-    private void updateDate(){
+    private void updateDate() {
         mDateButton.setText(mCrime.getmDate().toString());
     }
     @Override
@@ -110,6 +112,17 @@ public class CrimeFragment extends Fragment {
             Date d = (Date)data
                     .getSerializableExtra(DatePickerFragment.EXTRA_DATE);
             mCrime.setmDate(d);
+            updateDate();
+            FragmentManager fm = getActivity()
+                    .getSupportFragmentManager();
+            TimePickerFragment dialog = TimePickerFragment
+                    .newInstance(mCrime.getmDate());
+            dialog.setTargetFragment(CrimeFragment.this, REQUEST_TIME);
+            dialog.show(fm, DIALOG_TIME);
+        }else if (requestCode == REQUEST_TIME){
+            Date date = (Date)data
+                    .getSerializableExtra(TimePickerFragment.EXTRA_TIME);
+            mCrime.setmDate(date);
             updateDate();
         }
     }
