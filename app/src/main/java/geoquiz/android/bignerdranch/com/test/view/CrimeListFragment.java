@@ -15,6 +15,7 @@ import geoquiz.android.bignerdranch.com.test.R;
 import geoquiz.android.bignerdranch.com.test.adapter.CrimeListAdapter;
 import geoquiz.android.bignerdranch.com.test.manager.CrimeLab;
 import geoquiz.android.bignerdranch.com.test.model.Crime;
+import geoquiz.android.bignerdranch.com.test.pager.ViewPagerFragment;
 
 /**
  * Created by Администратор on 18.09.2016.
@@ -70,12 +71,12 @@ public class CrimeListFragment extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Crime c = crimeList.get(position);
+//                Crime c = crimeList.get(position);
                 Bundle b = new Bundle();
-                b.putSerializable(CrimeFragment.CRIME_KEY, c);
-                CrimeFragment fragment = new CrimeFragment();
-                fragment.setArguments(b);
-                activity.addFragment(fragment);
+                b.putSerializable(CrimeFragment.CRIME_KEY, position);
+                ViewPagerFragment viewPagerFragment = new ViewPagerFragment();
+                viewPagerFragment.setArguments(b);
+                activity.addFragment(viewPagerFragment);
             }
         });
     }

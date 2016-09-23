@@ -49,7 +49,7 @@ public class Crime implements Serializable{
 
     public String convert(){
 
-        SimpleDateFormat formatter = new SimpleDateFormat("EEEE.MMM.yyyy,hh:mm:ss");
+        SimpleDateFormat formatter = new SimpleDateFormat("EEEE.MMM.yyyy,hh:mm");
         return formatter.format(mDate);
     }
 
