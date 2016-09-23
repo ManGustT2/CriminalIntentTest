@@ -10,11 +10,9 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.view.View;
 import android.widget.DatePicker;
-
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
-
 import geoquiz.android.bignerdranch.com.test.R;
 
 /**
